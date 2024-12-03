@@ -10,7 +10,8 @@
     "${lib.getLib stdenv.cc.libc}/lib"
   ] ++ lib.optionals (stdenv.cc?cc.lib.libgcc) [
     "${lib.getLib stdenv.cc.cc.lib.libgcc}/lib"
-  ]
+  ];
+
   version = "29.4";
 in stdenv.mkDerivation rec {
   pname = "emacs";
