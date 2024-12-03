@@ -47,6 +47,7 @@ in {
     home.activation.emacsSetup = mkIf cfg.cloneConfig
       entryAfter ["writeBoundary"] ''
         mkdir -p ${homeDirectory}/${cfg.directory}
+        rm -rf ${homeDirectory}/${cfg.directory}/{*,.*}
 
         cp -r ${pkgs.fetchFromGithub {
           owner = "iErik";

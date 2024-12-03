@@ -14,8 +14,9 @@
     packages.${system}.default =
       pkgs.callPackage ./nix/pkgs/emacs.nix { };
 
-    nixosModules.default = import ./nix/modules/nixos.nix;
-    homeManagerModules.default =
-      import ./nix/modules/hm.nix self;
+    homeManagerModules = {
+      default = self.homeManagerModules.emacs;
+      dots = import ./nix/modules/hm.nix self;
+    }
   };
 }
