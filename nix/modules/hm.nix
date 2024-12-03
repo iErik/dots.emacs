@@ -40,7 +40,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
-      self.packages.${system}.default;
+      self.packages.${system}.default
     ];
 
     system.userActivationScripts.emacsSetup =
