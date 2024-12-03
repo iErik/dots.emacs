@@ -17,6 +17,6 @@
     homeManagerModules = {
       default = self.homeManagerModules.emacs;
       dots = import ./nix/modules/hm.nix self;
-    }
+    };
   };
 }
