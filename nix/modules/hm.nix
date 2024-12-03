@@ -58,6 +58,6 @@ in {
         ln -s \
           ${homeDirectory}/${cfg.directory}/ \
           ${homeDirectory}/.configs/emacs.d
-      '')
+      '');
   };
 }
