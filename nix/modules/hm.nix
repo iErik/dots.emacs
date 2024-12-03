@@ -51,7 +51,6 @@ in {
 
         cp -r ${builtins.fetchGit {
           url = "git@github.com:iErik/dots.emacs.git";
-          ref = "master";
         }}/* ${homeDirectory}/${cfg.directory}
 
         chown -R ${username}:users 
