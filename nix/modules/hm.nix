@@ -4,25 +4,57 @@ self: {
   config,
   ...
 }: let
-  inherit (lib)
-    mkEnableOption
-    mkIf;
+  inherit (lib) mkOption mkEnableOption mkIf types;
 
+  inherit (pkgs.stdenv.hostPlatform) system;
+
+  inherit (config.home) username homeDirectory;
+
+  dotfilesDir = "${homeDirectory}/${config.directory}";
   cfg = config;
 in {
   options = {
-    enable = mkEnableOption "your mom is kinda hot";
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Enable Emacs Dotfiles module";
+    };
+
+    cloneConfigs = mkOption {
+      type = types.bool;
+      default = true;
+      description =
+        "Whether or not to clone the Dotfiles" +
+        "repository to the user's directory";
+    };
+
+    directory = mkOption {
+      type = types.str;
+      default = "Dots/Emacs.dot";
+      description =
+        "The path of the directory in which to " +
+        "store the dotfiles (relative to the " +
+        "user's home directory).";
+    };
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ ];
+    home.packages = [
+      self.packages.${system}.default;
+    ];
 
-    pkgs.writeShellApplication {
-      name: "test";
-      runtimeInputs = [];
-      text = ''
-        echo "I am crazy"
-      ''
-    };
+    system.userActivationScripts.emacsSetup =
+      mkIf cfg.cloneConfigs {
+        text = ''
+          mkdir -p ${homeDirectory}/${cfg.directory}
+
+          cp -r ${pkgs.fetchFromGithub {
+            owner = "iErik";
+            repo = "dots.emacs";
+          }}/* ${homeDirectory}/${cfg.directory}
+
+          chown -R ${username}:users 
+        '';
+      };
   };
 }
