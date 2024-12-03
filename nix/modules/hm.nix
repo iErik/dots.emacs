@@ -12,9 +12,9 @@ self: {
   inherit (config.home) username homeDirectory;
 
   dotfilesDir = "${homeDirectory}/${config.directory}";
-  cfg = config;
+  cfg = config.dots.emacs;
 in {
-  options = {
+  options.dots.emacs = {
     enable = mkOption {
       type = types.bool;
       default = false;
