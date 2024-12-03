@@ -11,7 +11,9 @@ self: {
 
   inherit (config.home) username homeDirectory;
 
-  dotfilesDir = "${homeDirectory}/${config.directory}";
+  dotfilesDir =
+    "${homeDirectory}/${config.dots.emacs.directory}";
+
   cfg = config.dots.emacs;
 in {
   options.dots.emacs = {
