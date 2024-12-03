@@ -44,20 +44,6 @@ in {
       self.packages.${hostPlatform.system}.default
     ];
 
-    system.userActivationScripts.emacsSetup =
-      mkIf cfg.cloneConfigs {
-        text = ''
-          mkdir -p ${homeDirectory}/${cfg.directory}
-
-          cp -r ${pkgs.fetchFromGithub {
-            owner = "iErik";
-            repo = "dots.emacs";
-          }}/* ${homeDirectory}/${cfg.directory}
-
-          chown -R ${username}:users 
-        '';
-      };
-
     home.activation.emacsSetup = mkIf cfg.cloneConfig
       entryAfter ["writeBoundary"] ''
         mkdir -p ${homeDirectory}/${cfg.directory}
