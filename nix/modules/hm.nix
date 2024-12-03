@@ -44,8 +44,8 @@ in {
       self.packages.${hostPlatform.system}.default
     ];
 
-    (mkIf (cfg.cloneConfig) home.activation.emacsSetup = 
-      entryAfter ["writeBoundary"] ''
+    home.activation.emacsSetup = mkIf cfg.cloneConfig
+      (entryAfter ["writeBoundary"] ''
         mkdir -p ${homeDirectory}/${cfg.directory}
         rm -rf ${homeDirectory}/${cfg.directory}/{*,.*}
 
