@@ -49,9 +49,9 @@ in {
         mkdir -p ${homeDirectory}/${cfg.directory}
         rm -rf ${homeDirectory}/${cfg.directory}/{*,.*}
 
-        cp -r ${pkgs.fetchFromGitHub {
-          owner = "iErik";
-          repo = "dots.emacs";
+        cp -r ${fetchGit {
+          url = "git@github.com:iErik/dots.emacs.git";
+          ref = "master";
         }}/* ${homeDirectory}/${cfg.directory}
 
         chown -R ${username}:users 
