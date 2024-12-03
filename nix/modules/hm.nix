@@ -21,7 +21,7 @@ in {
       description = "Enable Emacs Dotfiles module";
     };
 
-    cloneConfigs = mkOption {
+    cloneConfig = mkOption {
       type = types.bool;
       default = true;
       description =
