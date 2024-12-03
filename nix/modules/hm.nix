@@ -51,7 +51,7 @@ in {
 
         cp -r ${fetchGit {
           url = "https://github.com/iErik/dots.emacs.git";
-          ref = "master";
+          exportIgnore = false;
         }}/* ${homeDirectory}/${cfg.directory}
 
         chown -R ${username}:users 
