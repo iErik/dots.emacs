@@ -5,6 +5,7 @@ self: {
   ...
 }: let
   inherit (lib) mkOption mkEnableOption mkIf types;
+  inherit (lib.hm.dag) entryAfter;
 
   inherit (pkgs.stdenv) hostPlatform;
 
@@ -56,5 +57,20 @@ in {
           chown -R ${username}:users 
         '';
       };
+
+    home.activation.emacsSetup = mkIf cfg.cloneConfig
+      entryAfter ["writeBoundary"] ''
+        mkdir -p ${homeDirectory}/${cfg.directory}
+
+        cp -r ${pkgs.fetchFromGithub {
+          owner = "iErik";
+          repo = "dots.emacs";
+        }}/* ${homeDirectory}/${cfg.directory}
+
+        chown -R ${username}:users 
+        ln -s \
+          ${homeDirectory}/${cfg.directory}/ \
+          ${homeDirectory}/.configs/emacs.d
+      '';
   };
 }
