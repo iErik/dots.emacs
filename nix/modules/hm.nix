@@ -50,8 +50,6 @@ in {
       (entryAfter ["writeBoundary"] ''
         rm -rf ${dotfilesDir}/*
         mkdir -p ${dotfilesDir}
-        find ${dotfilesDir} -type d -exec chmod 744 {} \;
-        find  ${dotfilesDir} -type f -exec chmod 644 {} \;
         chown -R ${username}:users ${dotfilesDir}
 
         cp -rf ${fetchGit {
@@ -60,6 +58,9 @@ in {
           ref = "master";
           rev = "843d2ff276af46a316381f3730958e0252c6b308";
         }}/* ${dotfilesDir}
+
+        find ${dotfilesDir} -type d -exec chmod 744 {} \;
+        find  ${dotfilesDir} -type f -exec chmod 644 {} \;
 
         ln -s \
           ${dotfilesDir}/ \
