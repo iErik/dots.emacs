@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs = {
-      urls = "github:nixos/nixpkgs?ref=nixos-unstable";
+      url = "github:nixos/nixpkgs?ref=nixos-unstable";
     };
   };
 
@@ -11,6 +11,11 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
   in {
+    packages.${system}.default =
+      pkgs.callPackage ./nix/pkgs/emacs.nix { };
 
+    nixosModules.default = import ./nix/modules/nixos.nix;
+    homeManagerModules.default =
+      import ./nix/modules/hm.nix self;
   };
 }

@@ -3,12 +3,14 @@
   fetchzip,
   pkgs,
   ...
-}: stdenv.mkDerivation rec {
+}: let 
+  version = "29.4";
+in stdenv.mkDerivation rec {
   pname: "emacs";
-  version: "29.4";
+  inherit version;
 
   src = fetchzip {
-    url = "https://ftp.gnu.org/gnu/emacs/emacs-29.4.tar.gz";
+    url = "https://ftp.gnu.org/gnu/emacs/emacs-${version}.tar.gz";
     sha256 =
     "06d2qia2pflsigjkkivjma9cvmc1qjdk4sn5lzlawxjng9icb257";
   };
@@ -22,7 +24,7 @@
     pkgs.gnutls
   ];
 
-  build-inputs = [
+  buildInputs = [
     pkgs.xorg.libXaw
     pkgs.xorg.libXpm
     pkgs.libpng
@@ -47,20 +49,20 @@
     "--with-xwidgets"
   ];
 
-  post-patch = "";
+  #postPatch = '''';
 
-  buildFlags = [];
+  #buildFlags = [];
 
-  installPhase = "";
+  #installPhase = '''';
 
-  postBuild = "";
+  #postBuild = '''';
 
   meta = with lib; {
-    description = "";
-    mainProgram = "";
+    description = "Cool editor bro";
+    mainProgram = "emacs";
     homepage = "";
-    license = licenses.bsd3;
+    license = licenses.gpl3Plus;
     maintainers = [];
-    platforms = platforms.x86_64;
+    platforms = platforms.linux;
   };
 }
