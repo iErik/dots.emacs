@@ -6,7 +6,7 @@
 }: let 
   version = "29.4";
 in stdenv.mkDerivation rec {
-  pname: "emacs";
+  pname = "emacs";
   inherit version;
 
   src = fetchzip {
