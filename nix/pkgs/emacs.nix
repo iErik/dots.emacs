@@ -2,6 +2,7 @@
   stdenv,
   fetchzip,
   pkgs,
+  lib,
   ...
 }: let 
   version = "29.4";
