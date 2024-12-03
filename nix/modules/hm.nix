@@ -46,21 +46,21 @@ in {
       self.packages.${hostPlatform.system}.default
     ];
 
-        #rm -rf ${homeDirectory}/${cfg.directory}/{*,.*}
     home.activation.emacsSetup = mkIf cfg.cloneConfig
       (entryAfter ["writeBoundary"] ''
-        mkdir -p ${homeDirectory}/${cfg.directory}
+        rm -rf ${dotfilesDir}/*
+        mkdir -p ${dotfilesDir}
+        chown -R ${username}:users ${dotfilesDir}
 
         cp -rf ${fetchGit {
           url = "https://github.com/iErik/dots.emacs.git";
           exportIgnore = false;
           ref = "master";
           rev = "843d2ff276af46a316381f3730958e0252c6b308";
-        }}/* ${homeDirectory}/${cfg.directory}
+        }}/* ${dotfilesDir}
 
-        chown -R ${username}:users ${dotfilesDir}
         ln -s \
-          ${homeDirectory}/${cfg.directory}/ \
+          ${dotfilesDir}/ \
           ${homeDirectory}/.configs/emacs.d
       '');
   };
