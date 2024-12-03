@@ -63,7 +63,7 @@ in {
 
         ln -s \
           ${dotfilesDir}/ \
-          ${homeDirectory}/.configs/emacs.d
+          ${homeDirectory}/.config/emacs.d
       '');
   };
 }
