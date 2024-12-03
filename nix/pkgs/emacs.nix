@@ -18,11 +18,13 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     pkgs.libgccjit
+    pkgs.libgcc
     pkgs.binutils
     pkgs.gmp
     pkgs.tree-sitter
     pkgs.sqlite
     pkgs.gnutls
+    pkgs.pkg-config
   ];
 
   buildInputs = [
@@ -34,11 +36,18 @@ in stdenv.mkDerivation rec {
     pkgs.libtiff
     pkgs.librsvg
     pkgs.libwebp
+    pkgs.texinfo
+    pkgs.ncurses
+    pkgs.gtk3
   ];
 
   dontConfigure = false;
 
   configureFlags = [
+    "--host=x86_64-pc-linux-gnu"
+    "--target="
+    ""
+
     "--with-pgtk"
     "--with-native-compilation=yes"
     "--with-imagemagick"
@@ -57,6 +66,8 @@ in stdenv.mkDerivation rec {
   #installPhase = '''';
 
   #postBuild = '''';
+
+  enableParallelBuilding = true;
 
   meta = with lib; {
     description = "Cool editor bro";
