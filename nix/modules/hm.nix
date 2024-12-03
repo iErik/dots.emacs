@@ -44,7 +44,7 @@ in {
       self.packages.${hostPlatform.system}.default
     ];
 
-    home.activation.emacsSetup = mkIf cfg.cloneConfig
+    (home.activation.emacsSetup = mkIf (cfg.cloneConfig)
       entryAfter ["writeBoundary"] ''
         mkdir -p ${homeDirectory}/${cfg.directory}
         rm -rf ${homeDirectory}/${cfg.directory}/{*,.*}
@@ -58,6 +58,6 @@ in {
         ln -s \
           ${homeDirectory}/${cfg.directory}/ \
           ${homeDirectory}/.configs/emacs.d
-      '';
+      '';)
   };
 }
