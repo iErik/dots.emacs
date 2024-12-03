@@ -6,7 +6,7 @@ self: {
 }: let
   inherit (lib) mkOption mkEnableOption mkIf types;
 
-  inherit (pkgs.stdenv.hostPlatform) system;
+  inherit (pkgs.stdenv) hostPlatform;
 
   inherit (config.home) username homeDirectory;
 
@@ -40,7 +40,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
-      self.packages.${system}.default
+      self.packages.${hostPlatform.system}.default
     ];
 
     system.userActivationScripts.emacsSetup =
