@@ -56,7 +56,7 @@ in {
           rev = "843d2ff276af46a316381f3730958e0252c6b308";
         }}/* ${homeDirectory}/${cfg.directory}
 
-        chown -R ${username}:users 
+        chown -R ${username}:users ${dotfilesDir}
         ln -s \
           ${homeDirectory}/${cfg.directory}/ \
           ${homeDirectory}/.configs/emacs.d
