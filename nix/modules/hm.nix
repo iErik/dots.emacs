@@ -46,12 +46,12 @@ in {
       self.packages.${hostPlatform.system}.default
     ];
 
+        #rm -rf ${homeDirectory}/${cfg.directory}/{*,.*}
     home.activation.emacsSetup = mkIf cfg.cloneConfig
       (entryAfter ["writeBoundary"] ''
         mkdir -p ${homeDirectory}/${cfg.directory}
-        rm -rf ${homeDirectory}/${cfg.directory}/{*,.*}
 
-        cp -r ${fetchGit {
+        cp -rf ${fetchGit {
           url = "https://github.com/iErik/dots.emacs.git";
           exportIgnore = false;
           ref = "master";
