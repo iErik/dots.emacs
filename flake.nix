@@ -15,7 +15,7 @@
       pkgs.callPackage ./nix/pkgs/emacs.nix { };
 
     homeManagerModules = {
-      default = self.homeManagerModules.emacs;
+      default = self.homeManagerModules.dots;
       dots = import ./nix/modules/hm.nix self;
     };
   };
