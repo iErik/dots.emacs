@@ -115,7 +115,7 @@ in stdenv.mkDerivation rec {
 
     ''
       substituteInPlace lisp/international/mule-cmds.el \
-        --replace /usr/share/locale ${gettext}/share/locale
+        --replace /usr/share/locale ${pkgs.gettext}/share/locale
 
       for makefile_in in $(find . -name Makefile.in -print); do
         substituteInPlace $makefile_in --replace /bin/pwd pwd
@@ -127,8 +127,8 @@ in stdenv.mkDerivation rec {
 
   # Emacs needs to find movemail at run time,
   # see info (emacs) Movemail
-  propagatedUserEnvPkgs = lib.optionals withMailutils [
-    mailutils
+  propagatedUserEnvPkgs = [
+    pkgs.mailutils
   ];
 
   env = {
