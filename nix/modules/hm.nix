@@ -49,8 +49,9 @@ in {
         mkdir -p ${homeDirectory}/${cfg.directory}
         rm -rf ${homeDirectory}/${cfg.directory}/{*,.*}
 
-        cp -r ${builtins.fetchGit {
-          url = "git@github.com:iErik/dots.emacs.git";
+        cp -r ${fetchGit {
+          url = "https://github.com/iErik/dots.emacs.git";
+          ref = "master";
         }}/* ${homeDirectory}/${cfg.directory}
 
         chown -R ${username}:users 
