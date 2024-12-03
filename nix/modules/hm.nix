@@ -49,7 +49,7 @@ in {
         mkdir -p ${homeDirectory}/${cfg.directory}
         rm -rf ${homeDirectory}/${cfg.directory}/{*,.*}
 
-        cp -r ${pkgs.fetchFromGithub {
+        cp -r ${pkgs.fetchFromGitHub {
           owner = "iErik";
           repo = "dots.emacs";
         }}/* ${homeDirectory}/${cfg.directory}
