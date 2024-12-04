@@ -100,7 +100,7 @@ in stdenv.mkDerivation rec {
     ./patches/no-games.patch
 
     (substituteAll {
-      src = .patches/native-comp-driver.patch;
+      src = ./patches/native-comp-driver.patch;
 
       backendPath = (lib.concatStringsSep " "
         (builtins.map (x: ''"-B${x}"'') ([
