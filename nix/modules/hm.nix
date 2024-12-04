@@ -10,7 +10,7 @@ self: {
   inherit (config.home) username homeDirectory;
 
   cfg = config.dots.emacs;
-  dotsDir = "${homeDirectory}/${cfg.dots.emacs.directory}";
+  dotsDir = "${homeDirectory}/${cfg.directory}";
   xdgConfDir = "${homeDirectory}/.config/emacs";
   repoUrl = "https://github.com/iErik/dots.emacs.git";
 in {
