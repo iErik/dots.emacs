@@ -46,6 +46,8 @@ in {
 
     home.activation.emacsSetup = mkIf cfg.cloneConfig
       (entryAfter ["writeBoundary"] ''
+        export PATH=${pkgs.git}/bin:$PATH
+
         rm -rf ${dotsDir}
         rm -rf ${xdgConfDir}
 
