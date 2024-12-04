@@ -1,9 +1,12 @@
 {
-  stdenv,
-  fetchzip,
-  fetchpatch,
   pkgs,
   lib,
+  stdenv,
+
+  substituteAll,
+  fetchzip,
+  fetchpatch,
+
   ...
 }: let 
   libGccJitLibraryPaths = [
