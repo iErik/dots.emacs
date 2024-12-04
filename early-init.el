@@ -14,6 +14,7 @@
 
 (add-to-list 'load-path "~/.config/emacs/modules")
 (add-to-list 'load-path "~/.config/emacs/modes")
+(add-to-list 'load-path "~/.config/emacs/themes")
 
 (setq init-file
       (expand-file-name "init.el" user-emacs-directory))

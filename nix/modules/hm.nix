@@ -6,16 +6,13 @@ self: {
 }: let
   inherit (lib) mkOption mkEnableOption mkIf types;
   inherit (lib.hm.dag) entryAfter;
-
   inherit (pkgs.stdenv) hostPlatform;
-
   inherit (config.home) username homeDirectory;
 
-  dotfilesDir =
-    "${homeDirectory}/${config.dots.emacs.directory}";
-  xdgConfDir = "${homeDirectory}/.config/emacs";
-
   cfg = config.dots.emacs;
+  dotsDir = "${homeDirectory}/${cfg.dots.emacs.directory}";
+  xdgConfDir = "${homeDirectory}/.config/emacs";
+  repoUrl = "https://github.com/iErik/dots.emacs.git";
 in {
   options.dots.emacs = {
     enable = mkOption {
@@ -49,22 +46,16 @@ in {
 
     home.activation.emacsSetup = mkIf cfg.cloneConfig
       (entryAfter ["writeBoundary"] ''
-        rm -rf ${dotfilesDir}
+        rm -rf ${dotsDir}
         rm -rf ${xdgConfDir}
-        mkdir -p ${dotfilesDir}
-        chown -R ${username}:users ${dotfilesDir}
 
-        cp -rf ${fetchGit {
-          url = "https://github.com/iErik/dots.emacs.git";
-          exportIgnore = false;
-          ref = "master";
-          rev = "1fbecf57a701e199afbe9c804281c3a723c105a7";
-        }}/. ${dotfilesDir}
+        git clone ${repoUrl} ${dotsDir}
 
-        find ${dotfilesDir} -type d -exec chmod 744 {} \;
-        find  ${dotfilesDir} -type f -exec chmod 644 {} \;
+        chown -R ${username}:users ${dotsDir}
+        find ${dotsDir} -type d -exec chmod 744 {} \;
+        find  ${dotsDir} -type f -exec chmod 644 {} \;
 
-        ln -s ${dotfilesDir} ${xdgConfDir}
+        ln -s ${dotsDir} ${xdgConfDir}
       '');
   };
 }
