@@ -50,6 +50,7 @@ in {
     home.activation.emacsSetup = mkIf cfg.cloneConfig
       (entryAfter ["writeBoundary"] ''
         rm -rf ${dotfilesDir}
+        rm -rf ${xdgConfDir}
         mkdir -p ${dotfilesDir}
         chown -R ${username}:users ${dotfilesDir}
 
