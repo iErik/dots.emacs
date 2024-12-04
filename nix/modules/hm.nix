@@ -13,6 +13,7 @@ self: {
 
   dotfilesDir =
     "${homeDirectory}/${config.dots.emacs.directory}";
+  xdgConfDir = "${homeDirectory}/.config/emacs";
 
   cfg = config.dots.emacs;
 in {
@@ -56,15 +57,13 @@ in {
           url = "https://github.com/iErik/dots.emacs.git";
           exportIgnore = false;
           ref = "master";
-          rev = "843d2ff276af46a316381f3730958e0252c6b308";
+          rev = "1fbecf57a701e199afbe9c804281c3a723c105a7";
         }}/. ${dotfilesDir}
 
         find ${dotfilesDir} -type d -exec chmod 744 {} \;
         find  ${dotfilesDir} -type f -exec chmod 644 {} \;
 
-        ln -s \
-          ${dotfilesDir}/ \
-          ${homeDirectory}/.config/emacs
+        ln -s ${dotfilesDir} ${xdgConfDir}
       '');
   };
 }
