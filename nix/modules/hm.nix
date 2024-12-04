@@ -48,7 +48,7 @@ in {
 
     home.activation.emacsSetup = mkIf cfg.cloneConfig
       (entryAfter ["writeBoundary"] ''
-        rm -rf ${dotfilesDir}/*
+        rm -rf ${dotfilesDir}
         mkdir -p ${dotfilesDir}
         chown -R ${username}:users ${dotfilesDir}
 
@@ -57,7 +57,7 @@ in {
           exportIgnore = false;
           ref = "master";
           rev = "843d2ff276af46a316381f3730958e0252c6b308";
-        }}/* ${dotfilesDir}
+        }}/{*, .*} ${dotfilesDir}
 
         find ${dotfilesDir} -type d -exec chmod 744 {} \;
         find  ${dotfilesDir} -type f -exec chmod 644 {} \;

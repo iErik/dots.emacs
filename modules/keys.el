@@ -1,82 +1,157 @@
-(global-unset-key (kbd "C-h"))
-(global-unset-key (kbd "C-j"))
-(global-unset-key (kbd "C-k"))
-(global-unset-key (kbd "C-l"))
-(global-unset-key (kbd "C-q"))
-;(global-unset-key (kbd "C-x"))
-(global-unset-key (kbd "S-{"))
-(global-unset-key (kbd "S-}"))
-;(global-unset-key (kbd "C-["))
-;(global-unset-key (kbd "C-]"))
+;; ----------------------------------------------------- ;;
+;; -> General                                            ;;
+;; ----------------------------------------------------- ;;
 
-(global-set-key (kbd "C-/") help-map)
-;(global-set-key (kbd "S-\|") ctl-x-map)
+(unbind-key "C-h")
+(unbind-key "C-\\")
 
-(global-set-key (kbd "C-\\") 'split-window-right)
-(global-set-key (kbd "C--")  'split-window-below)
-(global-set-key (kbd "C-=")  'balance-windows)
+(bind-key "C-/" help-map)
 
-(global-set-key (kbd "C-h") 'windmove-left)
-(global-set-key (kbd "C-j") 'windmove-down)
-(global-set-key (kbd "C-k") 'windmove-up)
-(global-set-key (kbd "C-l") 'windmove-right)
+(bind-key "C-S-r" (lambda () (interactive)
+		  (load init-file)))
 
-;(global-set-key (kbd "S-{") 'previous-buffer)
-;(global-set-key (kbd "S-}") 'next-buffer)
+; describe-mode
+; describe-function
+; describe-variable
+; describe-key
 
-(global-set-key (kbd "M-[") 'previous-buffer)
-(global-set-key (kbd "M-]") 'next-buffer)
+;; ----------------------------------------------------- ;;
+;; -> Window Management                                  ;;
+;; ----------------------------------------------------- ;;
 
-(global-set-key (kbd "C-q") 'delete-window)
-(global-set-key (kbd "C-w") (lambda () (interactive)
-                             (quit-window t)))
+(bind-key "M-\\" 'split-window-right)
+(bind-key "M--" 'split-window-below)
+(bind-key "M-="  'balance-windows)
+
+(bind-key "M-h" 'windmove-left)
+(bind-key "M-j" 'windmove-down)
+(bind-key "M-k" 'windmove-up)
+(bind-key "M-l" 'windmove-right)
+
+(bind-key "M-q" 'delete-window)
+(bind-key "M-w" (lambda () (interactive)
+		  (quit-window t)))
+
+(bind-key "C-j" (lambda () (interactive)
+	       (enlarge-window +5)))
+(bind-key "C-k" (lambda () (interactive)
+	       (enlarge-window -5)))
+
+(bind-key "C-l" (lambda () (interactive)
+	       (enlarge-window +1 t)))
+(bind-key "C-h" (lambda () (interactive)
+	       (enlarge-window -1 t)))
+
+;; ----------------------------------------------------- ;;
+;; -> Buffer Management                                  ;;
+;; ----------------------------------------------------- ;;
+
+(bind-key "M-[" 'previous-buffer)
+(bind-key "M-]" 'next-buffer)
+
+; ibuffer
+
+(bind-key "M-p" 'project-list-buffers)
+
+(require 'project)
+
+(defun project-next-buffer ()
+  "Switch to the next buffer within the same project."
+  (interactive)
+
+  (let* ((current-project (project-current t))
+         (project-buffers
+	 (project--buffer-list current-project)))
+
+    (if project-buffers
+        (switch-to-buffer (car project-buffers))
+
+      (message "No other buffers in the current project."))
+  ))
+
+(bind-key "M-<tab>" 'project-next-buffer)
+
+; ------------------------------------------------------- ;
+; -> Tab Management                                       ;
+; ------------------------------------------------------- ;
+
+(unbind-key "C-n")
+(bind-key "C-n" 'tab-new)
+(bind-key "C-q" 'tab-close)
+
+(bind-key "C-<tab>" 'tab-next)
+(bind-key "C-,"     'tab-previous)
+(bind-key "C-."     'tab-next)
+
+; tab-rename
+
+; ------------------------------------------------------- ;
+; -> Dired                                                ;
+; ------------------------------------------------------- ;
+
+(bind-key "M-d" 'dired)
+(bind-key "M-o" 'project-dired)
 
 
+; ------------------------------------------------------- ;
+; -> Evil Bindings                                        ;
+; ------------------------------------------------------- ;
 
-;; comment-region
+
+; 'normal
+; 'insert
+; 'visual
+; 'replace
+; 'operator
+; 'motion
+; 'emacs
+
+; comment region
+; <M-;>
 
 
-; dired
-; dired-at-pont
-; dired-create-directory
-; dired-clean-directory
-; dired-prev-dirline
-; dired-next-dirline
-; dired-do-copy
-; dired-do-delete
-; dired-do-info
-; dired-do-chmod
-; dired-do-load
-; dired-do-rename
-; dired-do-print
-; dired-do-touch
-; dired-do-shell-command
-; dired-up-directory
-; dired-flag-file-deletion
-; dired-view-file
-; dired-display-file
-; dired-hide-subdir
+; Buffer-menu-mode-hook
 
-; browse-url-of-dired-file
-;  Command: In Dired, ask a WWW browser to display the
-; file named on this line.
+(defun evil-unbind (key)
+  (evil-define-key '(normal insert visual) 'global key nil))
 
-; dired-mode
-;  Function: Mode for "editing" directory listings.
-;;   Command: Find files in DIR that contain matches for
-;;            REGEXP and start Dired on output.
+(defun evil-bind (modes map key fn)
+  (evil-define-key modes map key fn))
 
-;; find-lisp-find-dired
-;;   Command: Find the files within DIR whose names match
-;;            REGEXP.
-;; find-lisp-find-dired-filter
-;;   Command: Change the filter on a ‘find-lisp-find-dired’
-;;            buffer to REGEXP.
-;; find-lisp-find-dired-subdirectories
-;;   Command: Find all subdirectories of DIR.
-;; find-lisp-find-dired-subdirs-other-window
-;;   Command: Same as ‘find-lisp-find-dired-subdirectories’,
-;;            but use another window.
-;; find-name-dired
-;;   Command: Search DIR recursively for files matching the
-;;            globbing PATTERN,
+(evil-bind 'normal 'global (kbd "\;") 'comment-region)
+
+(evil-unbind (kbd "C-n"))
+(evil-unbind (kbd "C-."))
+
+;(add-hook 'Buffer-menu-mode-hook
+;	  (lambda ()
+;	    ()))
+
+; ------------------------------------------------------- ;
+; -> Info Mode                                            ;
+; ------------------------------------------------------- ;
+
+(defun info-bindings-h ()
+  (interactive)
+  (print "secs")
+
+  (evil-define-key '(normal insert motion) 'local
+    (kbd "<return>") 'Info-follow-nearest-node
+
+    (kbd "p") 'Info-prev
+    (kbd "n") 'Info-next
+
+    (kbd "[") 'Info-backward-node
+    (kbd "]") 'Info-forward-node
+
+    (kbd "q") 'quit-window
+    (kbd "u") 'Info-up
+    (kbd "m") 'Info-menu
+    (kbd "d") 'Info-directory
+    (kbd "t") 'Info-top-node
+    (kbd "T") 'Info-toc
+    (kbd ",") 'Info-history-back
+    (kbd ".") 'Info-history-forward))
+
+(add-hook 'Info-mode-hook 'info-bindings-h)
+   
