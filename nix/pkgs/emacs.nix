@@ -97,8 +97,6 @@ in stdenv.mkDerivation rec {
   ];
 
   patches = [
-    ./patches/no-games.patch
-
     (substituteAll {
       src = ./patches/native-comp-driver.patch;
 
