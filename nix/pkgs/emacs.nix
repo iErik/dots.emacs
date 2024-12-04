@@ -1,6 +1,7 @@
 {
   stdenv,
   fetchzip,
+  fetchpatch,
   pkgs,
   lib,
   ...
@@ -32,11 +33,11 @@ in stdenv.mkDerivation rec {
     pkgs.binutils
     pkgs.gmp
     pkgs.sqlite
-    pkgs.gnutls
     pkgs.pkg-config
   ];
 
   buildInputs = [
+    pkgs.gnutls
     pkgs.gettext 
     (lib.getDev pkgs.harfbuzz)
     pkgs.jansson
@@ -90,6 +91,27 @@ in stdenv.mkDerivation rec {
     "--with-x-toolkit=gtk"
     "--with-mailutils"
     "--enable-link-time-optimization"
+  ];
+
+  patches = [
+    ./patches/no-games.patch
+
+    (substituteAll {
+      src = .patches/native-comp-driver.patch;
+
+      backendPath = (lib.concatStringsSep " "
+        (builtins.map (x: ''"-B${x}"'') ([
+          # Paths necessary so the JIT compiler finds
+          # its libraries:
+          "${lib.getLib pkgs.libgccjit}/lib"
+        ] ++ libGccJitLibraryPaths ++ [
+          # Executable paths necessary for
+          # compilation (ld, as):
+          "${lib.getBin stdenv.cc.cc}/bin"
+          "${lib.getBin stdenv.cc.bintools}/bin"
+          "${lib.getBin stdenv.cc.bintools.bintools}/bin"
+        ])));
+     })
   ];
 
   postPatch = lib.concatStringsSep "\n" [

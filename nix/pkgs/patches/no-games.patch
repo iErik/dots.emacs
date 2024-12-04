@@ -1,0 +1,183 @@
+
+From 024a2c4c778a93e7317b61efb04ec6364bdaa06a Mon Sep 17 00:00:00 2001
+From: Erik Isidore <ericssonico@protonmail.ch>
+Date: Tue, 3 Dec 2024 21:00:47 -0300
+Subject: [PATCH] NO GAMES!!11
+
+---
+ doc/emacs/misc.texi   | 69 -------------------------------------------
+ lisp/menu-bar.el      | 43 ---------------------------
+ test/src/doc-tests.el |  4 +--
+ 3 files changed, 2 insertions(+), 114 deletions(-)
+
+diff --git a/doc/emacs/misc.texi b/doc/emacs/misc.texi
+index f618dadc0d6..f1d58012014 100644
+--- a/doc/emacs/misc.texi
++++ b/doc/emacs/misc.texi
+@@ -3223,31 +3223,11 @@ FFAP
+ @end table
+ 
+ @node Amusements
+-@section Games and Other Amusements
+-@cindex boredom
+-@cindex games
+ 
+ @findex animate-birthday-present
+ @cindex animate
+   The @code{animate} package makes text dance (e.g., @kbd{M-x
+ animate-birthday-present}).
+-
+-@findex blackbox
+-@findex mpuz
+-@findex 5x5
+-@cindex puzzles
+-  @kbd{M-x blackbox}, @kbd{M-x mpuz} and @kbd{M-x 5x5} are puzzles.
+-@code{blackbox} challenges you to determine the location of objects
+-inside a box by tomography.  @code{mpuz} displays a multiplication
+-puzzle with letters standing for digits in a code that you must
+-guess---to guess a value, type a letter and then the digit you think it
+-stands for.  The aim of @code{5x5} is to fill in all the squares.
+-
+-@findex bubbles
+-@cindex bubbles
+-  @kbd{M-x bubbles} is a game in which the object is to remove as many
+-bubbles as you can in the smallest number of moves.
+-
+ @findex decipher
+ @cindex ciphers
+ @cindex cryptanalysis
+@@ -3268,25 +3248,6 @@ Amusements
+ character.  Keep dissociwords out of your documentation, if you want
+ it to be well userenced and properbose.
+ 
+-@findex dunnet
+-@cindex dunnet
+-  @kbd{M-x dunnet} runs a text-based adventure game.
+-
+-@findex gomoku
+-@cindex Go Moku
+-  If you want a little more personal involvement, try @kbd{M-x gomoku},
+-which plays the game Go Moku with you.
+-
+-@cindex tower of Hanoi
+-@findex hanoi
+-  If you are a little bit bored, you can try @kbd{M-x hanoi}.  If you are
+-considerably bored, give it a numeric argument.  If you are very, very
+-bored, try an argument of 9.  Sit back and watch.
+-
+-@findex life
+-@cindex Life
+-  @kbd{M-x life} runs Conway's Game of Life cellular automaton.
+-
+ @findex morse-region
+ @findex unmorse-region
+ @findex nato-region
+@@ -3297,36 +3258,6 @@ Amusements
+ nato-region} converts the text in the region to NATO phonetic
+ alphabet; @kbd{M-x denato-region} converts it back.
+ 
+-@findex pong
+-@cindex Pong game
+-@findex tetris
+-@cindex Tetris
+-@findex snake
+-@cindex Snake
+-  @kbd{M-x pong}, @kbd{M-x snake} and @kbd{M-x tetris} are
+-implementations of the well-known Pong, Snake and Tetris games.
+-
+-@findex solitaire
+-@cindex solitaire
+-  @kbd{M-x solitaire} plays a game of solitaire in which you jump pegs
+-across other pegs.
+-
+-@findex zone
+-@cindex zone
+-  The command @kbd{M-x zone} plays games with the display when Emacs
+-is idle.
+-
+-@findex butterfly
+-@cindex butterfly
+-  ``Real Programmers'' deploy @kbd{M-x butterfly}, which uses butterflies
+-to flip a bit on the drive platter, see @uref{https://xkcd.com/378}.
+-
+-@findex doctor
+-@cindex Eliza
+-  Finally, if you find yourself frustrated, try describing your
+-problems to the famous psychotherapist Eliza.  Just do @kbd{M-x
+-doctor}.  End each input by typing @key{RET} twice.
+-
+ @ifnottex
+ @lowersections
+ @end ifnottex
+diff --git a/lisp/menu-bar.el b/lisp/menu-bar.el
+index b85cc834588..eed7153f337 100644
+--- a/lisp/menu-bar.el
++++ b/lisp/menu-bar.el
+@@ -1681,49 +1681,6 @@ menu-bar-options-menu
+ 
+ ;; The "Tools" menu items
+ 
+-(defvar menu-bar-games-menu
+-  (let ((menu (make-sparse-keymap "Games")))
+-
+-    (bindings--define-key menu [zone]
+-      '(menu-item "Zone Out" zone
+-                  :help "Play tricks with Emacs display when Emacs is idle"))
+-    (bindings--define-key menu [tetris]
+-      '(menu-item "Tetris" tetris
+-                  :help "Falling blocks game"))
+-    (bindings--define-key menu [solitaire]
+-      '(menu-item "Solitaire" solitaire
+-                  :help "Get rid of all the stones"))
+-    (bindings--define-key menu [snake]
+-      '(menu-item "Snake" snake
+-                  :help "Move snake around avoiding collisions"))
+-    (bindings--define-key menu [pong]
+-      '(menu-item "Pong" pong
+-                  :help "Bounce the ball to your opponent"))
+-    (bindings--define-key menu [mult]
+-      '(menu-item "Multiplication Puzzle"  mpuz
+-                  :help "Exercise brain with multiplication"))
+-    (bindings--define-key menu [life]
+-      '(menu-item "Life"  life
+-                  :help "Watch how John Conway's cellular automaton evolves"))
+-    (bindings--define-key menu [hanoi]
+-      '(menu-item "Towers of Hanoi" hanoi
+-                  :help "Watch Towers-of-Hanoi puzzle solved by Emacs"))
+-    (bindings--define-key menu [gomoku]
+-      '(menu-item "Gomoku"  gomoku
+-                  :help "Mark 5 contiguous squares (like tic-tac-toe)"))
+-    (bindings--define-key menu [bubbles]
+-      '(menu-item "Bubbles" bubbles
+-                  :help "Remove all bubbles using the fewest moves"))
+-    (bindings--define-key menu [black-box]
+-      '(menu-item "Blackbox"  blackbox
+-                  :help "Find balls in a black box by shooting rays"))
+-    (bindings--define-key menu [adventure]
+-      '(menu-item "Adventure"  dunnet
+-                  :help "Dunnet, a text Adventure game for Emacs"))
+-    (bindings--define-key menu [5x5]
+-      '(menu-item "5x5" 5x5
+-                  :help "Fill in all the squares on a 5x5 board"))
+-    menu))
+ 
+ (defvar menu-bar-encryption-decryption-menu
+   (let ((menu (make-sparse-keymap "Encryption/Decryption")))
+diff --git a/test/src/doc-tests.el b/test/src/doc-tests.el
+index b41a7ac5fb6..24befb737bc 100644
+--- a/test/src/doc-tests.el
++++ b/test/src/doc-tests.el
+@@ -34,8 +34,8 @@ doc-tests-documentation/autoloaded-macro
+ 
+ (ert-deftest doc-tests-documentation/autoloaded-defun ()
+   (skip-unless noninteractive)
+-  (should (autoloadp (symbol-function 'tetris)))
+-  (should (stringp (documentation 'tetris)))) ; See Bug#52969.
++  (should (autoloadp (symbol-function 'doctor)))
++  (should (stringp (documentation 'doctor)))) ; See Bug#52969.
+ 
+ (ert-deftest doc-tests-quoting-style ()
+   (should (memq (text-quoting-style) '(grave straight curve))))
+-- 
+2.47.0
+
