@@ -12,11 +12,20 @@ self: {
   metaPkg = self.packages.${hostPlatform.system}.default;
 
   emacsPkg = (metaPkg.withPkgs (epkgs: with epkgs; [
+    pkgs.libvterm
     vterm
-    magit
-    helm
+    eterm-256color
+    flycheck
     treesit-grammars.with-all-grammars
     all-the-icons
+    magit
+    helm
+
+    dirvish
+    pkgs.fd
+    pkgs.poppler
+    pkgs.ffmpegthumbnailer
+    pkgs.mediainfo
 
     rainbow-delimiters
     rainbow-identifiers
@@ -110,7 +119,7 @@ in {
 
 	  ln -s ${dotsDir} ${xdgConfDir}
 	fi
-        
+
 	ssh-agent -k
       '');
   };

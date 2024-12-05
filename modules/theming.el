@@ -2,6 +2,7 @@
 
 (set-face-attribute
  'default nil
+ :weight 'normal
  :font "CaskaydiaCove Nerd Font-11")
 
 (load-theme 'kanagawa t nil)
