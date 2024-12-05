@@ -29,7 +29,7 @@ self: {
     rainbow-mode
 
     pkgs.rust-analyzer
-    pkgs.rust-fmt
+    pkgs.rustfmt
   ]));
 
   cfg = config.dots.emacs;
