@@ -76,6 +76,9 @@ in stdenv.mkDerivation rec {
     pkgs.cairo
 
     pkgs.webkitgtk_4_0
+
+    pkgs.emacsPackages.tree-sitter-langs
+    pkgs.emacsPackages.tree-sitter
   ];
 
   dontConfigure = false;
