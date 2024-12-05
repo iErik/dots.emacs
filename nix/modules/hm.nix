@@ -28,8 +28,8 @@ self: {
     rainbow-identifiers
     rainbow-mode
 
-    rust-analyzer
-    rust-fmt
+    pkgs.rust-analyzer
+    pkgs.rust-fmt
   ]));
 
   cfg = config.dots.emacs;
