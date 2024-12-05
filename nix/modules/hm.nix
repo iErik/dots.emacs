@@ -46,6 +46,7 @@ in {
 
     home.activation.emacsSetup = mkIf cfg.cloneConfig
       (entryAfter ["writeBoundary"] ''
+        export PATH=${pkgs.openssh}/bin:$PATH
         export PATH=${pkgs.git}/bin:$PATH
 
 	eval $(ssh-agent -s)
@@ -61,6 +62,8 @@ in {
         find  ${dotsDir} -type f -exec chmod 644 {} \;
 
         ln -s ${dotsDir} ${xdgConfDir}
+
+	ssh-agent -k
       '');
   };
 }
