@@ -9,6 +9,8 @@ self: {
   inherit (pkgs.stdenv) hostPlatform;
   inherit (config.home) username homeDirectory;
 
+  emacsPkg = self.packages.${hostPlatform.system}.default;
+
   cfg = config.dots.emacs;
   dotsDir = "${homeDirectory}/${cfg.directory}";
   xdgConfDir = "${homeDirectory}/.config/emacs";
@@ -41,8 +43,10 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [
-      self.packages.${hostPlatform.system}.default
-      pkgs.emacsPackages.tree-sitter-langs
+      emacsPkg
+      emacsPkg.withPackages (epkgs: with epkgs; [
+        vterm
+      ])
     ];
 
     home.activation.emacsSetup = mkIf cfg.cloneConfig
