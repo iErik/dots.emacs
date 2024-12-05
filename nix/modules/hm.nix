@@ -107,7 +107,7 @@ in {
 
         if [ -d "${dotsDir}/.git" ];
 	then
-	  cd ${dotsDir} && git pull -u origin master
+	  cd ${dotsDir} && git pull origin master
         else
 	  rm -rf ${dotsDir}
 	  rm -rf ${xdgConfDir}
