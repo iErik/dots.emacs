@@ -13,23 +13,38 @@ self: {
 
   emacsPkg = (metaPkg.withPkgs (epkgs: with epkgs; [
     vterm
+    magit
+    helm
     treesit-grammars.with-all-grammars
     all-the-icons
 
+    rainbow-delimiters
+    rainbow-identifiers
+    rainbow-mode
+
     nix-ts-mode
+    nix-mode
     uxntal-mode
     slint-mode
 
     sublime-themes
     stimmung-themes
     soothe-theme
-
-    rainbow-delimiters
-    rainbow-identifiers
-    rainbow-mode
+    kanagawa-themes
 
     pkgs.rust-analyzer
     pkgs.rustfmt
+    pkgs.ols
+    pkgs.vim-language-server
+    pkgs.vue-language-server
+    pkgs.cmake-language-server
+    pkgs.yaml-language-server
+    pkgs.vala-language-server
+    pkgs.bash-language-server
+    pkgs.elm-language-server
+    pkgs.zls
+    pkgs.gopls
+    pkgs.hyprls
   ]));
 
   cfg = config.dots.emacs;
@@ -60,12 +75,17 @@ in {
         "store the dotfiles (relative to the " +
         "user's home directory).";
     };
+
+    useSsh = mkOption {
+      type = types.bool;
+      default = true;
+      description =
+	"Whether to use SSH to fetch git repository";
+    };
   };
 
   config = mkIf cfg.enable {
-    home.packages = [
-      emacsPkg
-    ];
+    home.packages = [emacsPkg];
 
     home.activation.emacsSetup = mkIf cfg.cloneConfig
       (entryAfter ["writeBoundary"] ''
@@ -73,19 +93,24 @@ in {
         export PATH=${pkgs.git}/bin:$PATH
 
 	eval $(ssh-agent -s)
-	ssh-add ${homeDirectory}/.ssh/id_ed25519
+	ssh-add
 
-        rm -rf ${dotsDir}
-        rm -rf ${xdgConfDir}
+        if [ -d "${dotsDir}/.git" ];
+	then
+	  cd ${dotsDir} && git pull -u origin master
+        else
+	  rm -rf ${dotsDir}
+	  rm -rf ${xdgConfDir}
 
-        git clone ${repoUrl} ${dotsDir}
+	  git clone ${repoUrl} ${dotsDir}
 
-        chown -R ${username}:users ${dotsDir}
-        find ${dotsDir} -type d -exec chmod 744 {} \;
-        find  ${dotsDir} -type f -exec chmod 644 {} \;
+	  chown -R ${username}:users ${dotsDir}
+	  find ${dotsDir} -type d -exec chmod 744 {} \;
+	  find  ${dotsDir} -type f -exec chmod 644 {} \;
 
-        ln -s ${dotsDir} ${xdgConfDir}
-
+	  ln -s ${dotsDir} ${xdgConfDir}
+	fi
+        
 	ssh-agent -k
       '');
   };

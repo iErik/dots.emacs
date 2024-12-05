@@ -20,12 +20,6 @@
 
 ;;(use-package centaur-tabs :ensure)
 
-;(use-package treemacs
-;  :ensure t
-;  :defer t
-;  :config (treemacs-start-on-boot))
-
-
 (use-package nov
   :ensure t
   :config
@@ -33,7 +27,7 @@
     (add-to-list
     'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
-;(use-package vterm :ensure)
+(use-package vterm :ensure)
 
 ;(use-package helm
 ;  :ensure t
@@ -48,7 +42,8 @@
     ;; larger, it respects the actual height.
     (setq doom-modeline-height 35)
 
-    ;; How wide the mode-line bar should be. It's only respected in GUI.
+    ;; How wide the mode-line bar should be. It's only
+    ;; respected in GUI.
     (setq doom-modeline-bar-width 4)
 
     ;; Whether to use hud instead of default bar. It's

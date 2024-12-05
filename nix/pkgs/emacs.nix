@@ -19,15 +19,19 @@
 
   version = "29.4";
   siteStart = ./site-start.el;
+
+  pkgUrl =
+    "https://ftp.gnu.org/gnu/emacs/emacs-${version}.tar.gz";
+  sha256 = 
+    "06d2qia2pflsigjkkivjma9cvmc1qjdk4sn5lzlawxjng9icb257";
+
 in stdenv.mkDerivation (finalAttrs: {
   pname = "emacs";
   inherit version;
 
   src = fetchzip {
-    url =
-      "https://ftp.gnu.org/gnu/emacs/emacs-${version}.tar.gz";
-    sha256 =
-      "06d2qia2pflsigjkkivjma9cvmc1qjdk4sn5lzlawxjng9icb257";
+    inherit sha256;
+    url = pkgUrl;
   };
 
   nativeBuildInputs = [
@@ -160,19 +164,18 @@ in stdenv.mkDerivation (finalAttrs: {
     $out/bin/emacs --batch -f batch-byte-compile \
       $out/share/emacs/site-lisp/site-start.el
 
-
     echo "Generating native-compiled trampolines..."
     # precompile trampolines in parallel, but avoid
     # spawning one process per trampoline. 1000 is a rough
     # lower bound on the number of trampolines compiled.
-    $out/bin/emacs --batch --eval                    \
-      "(mapatoms (lambda (s)                         \
-        (when (subr-primitive-p (symbol-function s)) \
-            (print s))))"                            \
-      | xargs -n $((1000/NIX_BUILD_CORES + 1))       \
-              -P $NIX_BUILD_CORES                    \
-      $out/bin/emacs --batch -l comp --eval          \
-        "(while argv (comp-trampoline-compile        \
+    $out/bin/emacs --batch --eval                     \
+      "(mapatoms (lambda (s)                          \
+        (when (subr-primitive-p (symbol-function s))  \
+            (print s))))"                             \
+      | xargs -n $((1000/NIX_BUILD_CORES + 1))        \
+              -P $NIX_BUILD_CORES                     \
+      $out/bin/emacs --batch -l comp --eval           \
+        "(while argv (comp-trampoline-compile         \
           (intern (pop argv))))"
 
     $out/bin/emacs --batch                            \
@@ -180,30 +183,10 @@ in stdenv.mkDerivation (finalAttrs: {
             \"$out/share/emacs/native-lisp\")"        \
       -f batch-native-compile                         \
          $out/share/emacs/site-lisp/site-start.el
-
-    linkPath() {
-      local pkg=$1
-      local origin_path=$2
-      local dest_path=$3
-
-      if [[ -d "$pkg/$origin_path" ]]; then
-        $lndir/bin/lndir -silent \
-          "$pkg/$origin_path"    \
-          "$out/$dest_path"
-      fi
-    }
-
-    linkEmacsPackages() {
-      linkPath "$1" "bin" "bin"
-      linkPath "$1" "lib" "lib"
-      linkPath "$1" "share/emacs/site-lisp" \
-        "share/emacs/site-lisp"
-      linkPath "$1" "share/emacs/native-lisp" \
-        "share/emacs/native-lisp"
-    }
   '';
 
   passthru = {
+    # emacsPackageFor makes use of these attributes
     withNativeCompilation = true;
     withTreeSitter = true;
     withXwidgets = true;
@@ -228,10 +211,6 @@ in stdenv.mkDerivation (finalAttrs: {
   };
 
   #buildFlags = [];
-
-  #installPhase = '''';
-
-  #postBuild = '''';
 
   enableParallelBuilding = true;
 

@@ -1,0 +1,1 @@
+(dirvish-override-dired-mode)

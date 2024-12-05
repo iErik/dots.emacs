@@ -22,3 +22,5 @@
 ; ------------------------------------------------------- ;
 
 (add-hook 'vterm-mode-hook 'disable-lines-n-columns)
+(setq vterm-term-environment-variable "eterm-color")
+(setq vterm-always-compile-module t)

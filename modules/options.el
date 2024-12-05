@@ -1,4 +1,10 @@
 ; ------------------------------------------------------- ;
+; -> Major Modes                                          ;
+; ------------------------------------------------------- ;
+
+(add-to-list 'auto-mode-list '("\\.nix\\'" . nix-ts-mode))
+
+;------------------------------------------------------- ;
 ; -> General Options                                      ;
 ; ------------------------------------------------------- ;
 
@@ -19,7 +25,6 @@
 (add-hook 'dired-mode-hook 'disable-lines-n-columns)
 (add-hook 'Buffer-menu-mode-hook 'disable-lines-n-columns)
 
-; auto-mode-alist
 ; visual-line-mode
 ; subword-mode
 ; glasses-mode
