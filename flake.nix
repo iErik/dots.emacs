@@ -10,10 +10,7 @@
     pkgs = import nixpkgs { inherit system; };
   in {
     packages.${system}.default =
-      (pkgs.callPackage ./nix/pkgs/emacs.nix { })
-        .withPackages (epkgs: with epkgs; [
-          treesit-grammars.with-all-grammars
-        ]);
+      pkgs.callPackage ./nix/pkgs/emacs.nix { };
 
     homeManagerModules = {
       default = self.homeManagerModules.dots;
