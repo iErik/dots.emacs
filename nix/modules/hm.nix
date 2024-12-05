@@ -42,6 +42,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = [
       self.packages.${hostPlatform.system}.default
+      pkgs.emacsPackages.tree-sitter-langs
     ];
 
     home.activation.emacsSetup = mkIf cfg.cloneConfig

@@ -5,9 +5,10 @@
 
   substituteAll,
   fetchzip,
+  emacsPackagesFor,
 
   ...
-}: let 
+}: let
   libGccJitLibraryPaths = [
     "${lib.getLib pkgs.libgccjit}/lib/gcc"
     "${lib.getLib stdenv.cc.libc}/lib"
@@ -16,7 +17,8 @@
   ];
 
   version = "29.4";
-in stdenv.mkDerivation rec {
+  siteStart = ./site-start.el;
+in stdenv.mkDerivation (finalAttrs: {
   pname = "emacs";
   inherit version;
 
@@ -36,11 +38,12 @@ in stdenv.mkDerivation rec {
     pkgs.gmp
     pkgs.sqlite
     pkgs.pkg-config
+    pkgs.lndir
   ];
 
   buildInputs = [
     pkgs.gnutls
-    pkgs.gettext 
+    pkgs.gettext
     (lib.getDev pkgs.harfbuzz)
     pkgs.jansson
 
@@ -76,9 +79,6 @@ in stdenv.mkDerivation rec {
     pkgs.cairo
 
     pkgs.webkitgtk_4_0
-
-    pkgs.emacsPackages.tree-sitter-langs
-    pkgs.emacsPackages.tree-sitter
   ];
 
   dontConfigure = false;
@@ -150,6 +150,62 @@ in stdenv.mkDerivation rec {
     ""
   ];
 
+  postInstall = ''
+    mkdir -p $out/share/emacs/site-lisp
+    mkdir -p $out/share/emacs/native-lisp
+    mkdir -p $out/lib
+
+    cp ${siteStart} $out/share/emacs/site-lisp/site-start.el
+    $out/bin/emacs --batch -f batch-byte-compile \
+      $out/share/emacs/site-lisp/site-start.el
+
+
+    echo "Generating native-compiled trampolines..."
+    # precompile trampolines in parallel, but avoid
+    # spawning one process per trampoline. 1000 is a rough
+    # lower bound on the number of trampolines compiled.
+    $out/bin/emacs --batch --eval                    \
+      "(mapatoms (lambda (s)                         \
+        (when (subr-primitive-p (symbol-function s)) \
+            (print s))))"                            \
+      | xargs -n $((1000/NIX_BUILD_CORES + 1))       \
+              -P $NIX_BUILD_CORES                    \
+      $out/bin/emacs --batch -l comp --eval          \
+        "(while argv (comp-trampoline-compile        \
+          (intern (pop argv))))"
+
+    $out/bin/emacs --batch                            \
+      --eval "(add-to-list 'native-comp-eln-load-path \
+            \"$out/share/emacs/native-lisp\")"        \
+      -f batch-native-compile                         \
+         $out/share/emacs/site-lisp/site-start.el
+
+    linkPath() {
+      local pkg=$1
+      local origin_path=$2
+      local dest_path=$3
+
+      if [[ -d "$pkg/$origin_path" ]]; then
+        $lndir/bin/lndir -silent \
+          "$pkg/$origin_path"    \
+          "$out/$dest_path"
+      fi
+    }
+
+    linkEmacsPackages() {
+      linkPath "$1" "bin" "bin"
+      linkPath "$1" "lib" "lib"
+      linkPath "$1" "share/emacs/site-lisp" \
+        "share/emacs/site-lisp"
+      linkPath "$1" "share/emacs/native-lisp" \
+        "share/emacs/native-lisp"
+    }
+  '';
+
+  passthru = {
+    pkgs = recurseIntoAttrs (emacsPackagesFor finalAttrs);
+  };
+
   # Emacs needs to find movemail at run time,
   # see info (emacs) Movemail
   propagatedUserEnvPkgs = [
@@ -160,7 +216,7 @@ in stdenv.mkDerivation rec {
     NATIVE_FULL_AOT = "1";
     LIBRARY_PATH =
       lib.concatStringsSep ":" libGccJitLibraryPaths;
-  }; 
+  };
 
   #buildFlags = [];
 
@@ -178,4 +234,4 @@ in stdenv.mkDerivation rec {
     maintainers = [];
     platforms = platforms.linux;
   };
-}
+})
