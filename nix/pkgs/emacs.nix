@@ -3,6 +3,7 @@
   lib,
   stdenv,
 
+  recurseIntoAttrs,
   substituteAll,
   fetchzip,
   emacsPackagesFor,
