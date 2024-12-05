@@ -44,9 +44,9 @@ in {
   config = mkIf cfg.enable {
     home.packages = [
       emacsPkg
-      emacsPkg.pkgs.withPackages (epkgs: with epkgs; [
+      (emacsPkg.pkgs.withPackages (epkgs: with epkgs; [
         vterm
-      ])
+      ]))
     ];
 
     home.activation.emacsSetup = mkIf cfg.cloneConfig
