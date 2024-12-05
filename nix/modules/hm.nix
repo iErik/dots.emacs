@@ -51,7 +51,7 @@ self: {
     pkgs.yaml-language-server
     pkgs.vala-language-server
     pkgs.bash-language-server
-    pkgs.elm-language-server
+    pkgs.elmPackages.elm-language-server
     pkgs.zls
     pkgs.gopls
     pkgs.hyprls
