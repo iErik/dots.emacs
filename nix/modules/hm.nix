@@ -11,7 +11,7 @@ self: {
 
   metaPkg = self.packages.${hostPlatform.system}.default;
 
-  emacsPkg = (metaPkj.withPkgs (epkgs: with epkgs; [
+  emacsPkg = (metaPkg.withPkgs (epkgs: with epkgs; [
     vterm
     treesit-grammars.with-all-grammars
     all-the-icons
