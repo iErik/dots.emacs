@@ -6,4 +6,5 @@
 (load "editing")
 (load "theming")
 (load "tabbar")
-
+(load "terminal")
+(load "lsp")

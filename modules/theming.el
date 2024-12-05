@@ -1,6 +1,8 @@
+(load "kanagawa/kanagawa-theme")
+
 (set-face-attribute
  'default nil
- :font "CaskaydiaCove Nerd Font-10")
+ :font "CaskaydiaCove Nerd Font-11")
 
 (load-theme 'kanagawa t nil)
 

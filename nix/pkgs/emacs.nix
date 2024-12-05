@@ -5,7 +5,6 @@
 
   substituteAll,
   fetchzip,
-  fetchpatch,
 
   ...
 }: let 

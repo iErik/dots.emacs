@@ -5,23 +5,113 @@
  '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
+
+(load "odin-mode")
+(use-package rust-mode
+  :ensure t
+  :init
+  (setq rust-mode-treesitter-derive t))
+
+(use-package nix-ts-mode
+  :ensure t)
+
 (use-package all-the-icons
   :ensure)
 
 ;;(use-package centaur-tabs :ensure)
 
-(use-package treemacs
-  :ensure t
-  :defer t
-  :config (treemacs-start-on-boot))
+;(use-package treemacs
+;  :ensure t
+;  :defer t
+;  :config (treemacs-start-on-boot))
+
 
 (use-package nov
   :ensure t
-  :config (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+  :config
+
+    (add-to-list
+    'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
 (use-package vterm :ensure)
 
-(load "odin-mode")
+;(use-package helm
+;  :ensure t
+;  :init (helm-mode 1))
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :config
+    ;; How tall the mode-line should be. It's only
+    ;; respected in GUI. If the actual char height is
+    ;; larger, it respects the actual height.
+    (setq doom-modeline-height 35)
+
+    ;; How wide the mode-line bar should be. It's only respected in GUI.
+    (setq doom-modeline-bar-width 4)
+
+    ;; Whether to use hud instead of default bar. It's
+    ;; only respected in GUI.
+    (setq doom-modeline-hud nil)
+
+    ;; How to detect the project root.
+    ;; nil means to use `default-directory'.
+    ;; The project management packages have some issues on
+    ;; detecting project root. e.g. `projectile' doesn't
+    ;; handle symlink folders well, while `project' is
+    ;; unable to hanle sub-projects.
+    ;; You can specify one if you encounter the issue.
+    (setq doom-modeline-project-detection 'auto)
+
+    ;; Whether display icons in the mode-line.
+    ;; While using the server mode in GUI, should set the
+    ;; value explicitly.
+    (setq doom-modeline-icon t)
+
+    ;; Whether display the total line number。
+    (setq doom-modeline-total-line-number nil))
+
+(use-package dashboard
+  :ensure t
+  :init (dashboard-setup-startup-hook)
+  :config
+
+  ;; Show Dashboard in frames created with `emacsclient -c`
+  (setq initial-buffer-choice (lambda ()
+    (get-buffer-create dashboard-buffer-name)))
+
+  ;; Value can be:
+  ;;  - 'official which displays the official emacs logo.
+  ;;  - 'logo which displays an alternative emacs logo.
+  ;;  - an integer which displays one of the text banners
+  ;;    (see dashboard-banners-directory files).
+  ;;  - a string that specifies a path for a custom banner
+  ;;    currently supported types are gif/image/text/xbm.
+  ;;  - a cons of 2 strings which specifies the path of an
+  ;;    image to use and other path of a text file to use
+  ;;    if image isn't supported.
+  ;;    ("path/to/image/file/image.png" .
+  ;;    "path/to/text/file/text.txt").
+  ;;  - a list that can display an random banner,
+  ;;    supported values are: string (filepath), 'official,
+  ;;    'logo and integers.
+  (setq dashboard-startup-banner 3)
+
+  ;; Content is not centered by default. To center, set
+  (setq dashboard-center-content t)
+
+  ;; Vertically center content
+  (setq dashboard-vertically-center-content t)
+
+  ;; Disable shortcut "jump" indicators for each section
+  (setq dashboard-show-shortcuts nil)
+
+  ;; Which items to display on the Dashboard
+  ;;(setq dashboard-items '((bookmarks . 5)
+   ;;                       (projects .5)))
+  )
+
 
 (use-package evil
   :ensure
