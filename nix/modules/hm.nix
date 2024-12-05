@@ -14,7 +14,8 @@ self: {
   emacsPkg = (metaPkg.withPkgs (epkgs: with epkgs; [
     pkgs.libvterm
     vterm
-    eterm-256color
+    # Broken :(
+    #eterm-256color
     flycheck
     treesit-grammars.with-all-grammars
     all-the-icons
