@@ -39,7 +39,7 @@ in stdenv.mkDerivation (finalAttrs: {
     pkgs.gmp
     pkgs.sqlite
     pkgs.pkg-config
-    pkgs.lndir
+    pkgs.xorg.lndir
   ];
 
   buildInputs = [
