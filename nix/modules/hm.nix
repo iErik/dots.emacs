@@ -50,7 +50,7 @@ in {
         export PATH=${pkgs.git}/bin:$PATH
 
 	eval $(ssh-agent -s)
-	ssh-add ${homeDirectory}/.ssh/id_25519
+	ssh-add ${homeDirectory}/.ssh/id_ed25519
 
         rm -rf ${dotsDir}
         rm -rf ${xdgConfDir}
