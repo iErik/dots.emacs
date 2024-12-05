@@ -28,8 +28,8 @@
 (bind-key "M-k" 'windmove-up)
 (bind-key "M-l" 'windmove-right)
 
-(bind-key "M-q" 'delete-window)
-(bind-key "M-w" (lambda () (interactive)
+(bind-key "M-w" 'delete-window)
+(bind-key "M-q" (lambda () (interactive)
 		  (quit-window t)))
 
 (bind-key "C-j" (lambda () (interactive)
@@ -76,7 +76,7 @@
 ; ------------------------------------------------------- ;
 
 (unbind-key "C-n")
-(bind-key "C-n" 'tab-new)
+(bind-key "C-t" 'tab-new)
 (bind-key "C-q" 'tab-close)
 
 (bind-key "C-<tab>" 'tab-next)
@@ -121,6 +121,7 @@
 (evil-bind 'normal 'global (kbd "\;") 'comment-region)
 
 (evil-unbind (kbd "C-n"))
+(evil-unbind (kbd "C-t"))
 (evil-unbind (kbd "C-."))
 
 ;(add-hook 'Buffer-menu-mode-hook
@@ -155,3 +156,50 @@
 
 (add-hook 'Info-mode-hook 'info-bindings-h)
    
+; ------------------------------------------------------- ;
+; -> VTerm Mode                                           ;
+; ------------------------------------------------------- ;
+
+(defun vterm-bindings-h ()
+  (interactive)
+
+  (define-key
+    vterm-mode-map
+    (kbd "C-q") #'vterm-send-next-key)
+
+  (define-key vterm-mode-map
+    (kbd "M-]") nil)
+
+  (define-key vterm-mode-map
+    (kbd "M-[") nil)
+
+  (define-key vterm-mode-map
+    (kbd "M-\\") nil)
+  (define-key vterm-mode-map
+    (kbd "M--") nil)
+  (define-key vterm-mode-map
+    (kbd "M-=") nil)
+
+  (define-key vterm-mode-map
+    (kbd "M-h") nil)
+  (define-key vterm-mode-map
+    (kbd "M-j") nil)
+  (define-key vterm-mode-map
+    (kbd "M-k") nil)
+  (define-key vterm-mode-map
+    (kbd "M-l") nil)
+  (define-key vterm-mode-map
+    (kbd "M-q") nil)
+  (define-key vterm-mode-map
+    (kbd "M-w") nil)
+
+  (define-key vterm-mode-map
+    (kbd "C-j") nil)
+  (define-key vterm-mode-map
+    (kbd "C-k") nil)
+  (define-key vterm-mode-map
+    (kbd "C-l") nil)
+  (define-key vterm-mode-map
+    (kbd "C-h") nil))
+
+(add-hook 'vterm-mode-hook 'vterm-bindings-h)

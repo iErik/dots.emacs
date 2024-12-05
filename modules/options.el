@@ -50,16 +50,3 @@
 		 user-emacs-directory) t)))
 
 ;(setq create-lockfiles nil)
-
-; ------------------------------------------------------- ;
-; -> EShell/Term                                          ;
-; ------------------------------------------------------- ;
-
-;; comint-scroll-to-bottom-on-input
-;; comint-move-point-for-output
-
-(setq comint-terminfo-terminal "xterm-256color")
-(setq eshell-prefer-lisp-functions t)
-
-(add-hook 'term-mode-hook 'disable-lines-n-columns)
-(add-hook 'eshell-mode-hook 'disable-lines-n-columns)

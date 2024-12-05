@@ -12,7 +12,7 @@ self: {
   cfg = config.dots.emacs;
   dotsDir = "${homeDirectory}/${cfg.directory}";
   xdgConfDir = "${homeDirectory}/.config/emacs";
-  repoUrl = "https://github.com/iErik/dots.emacs.git";
+  repoUrl = "git@github.com:iErik/dots.emacs.git";
 in {
   options.dots.emacs = {
     enable = mkOption {
