@@ -44,7 +44,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = [
       emacsPkg
-      emacsPkg.withPackages (epkgs: with epkgs; [
+      emacsPkg.emacsWithPackages (epkgs: with epkgs; [
         vterm
       ])
     ];
