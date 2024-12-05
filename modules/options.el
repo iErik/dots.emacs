@@ -2,7 +2,7 @@
 ; -> Major Modes                                          ;
 ; ------------------------------------------------------- ;
 
-(add-to-list 'auto-mode-list '("\\.nix\\'" . nix-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-ts-mode))
 
 ;------------------------------------------------------- ;
 ; -> General Options                                      ;
