@@ -204,6 +204,12 @@ in stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
+    withNativeCompilation = true;
+    withTreeSitter = true;
+    withXwidgets = true;
+
+    pkgs = (recurseIntoAttrs (emacsPackagesFor finalAttrs));
+
     withPkgs =
       (recurseIntoAttrs (emacsPackagesFor finalAttrs))
         .withPackages;
