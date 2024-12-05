@@ -204,7 +204,9 @@ in stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    pkgs = recurseIntoAttrs (emacsPackagesFor finalAttrs);
+    withPkgs =
+      (recurseIntoAttrs (emacsPackagesFor finalAttrs))
+        .withPackages;
   };
 
   # Emacs needs to find movemail at run time,

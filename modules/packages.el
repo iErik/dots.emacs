@@ -33,7 +33,7 @@
     (add-to-list
     'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 
-(use-package vterm :ensure)
+;(use-package vterm :ensure)
 
 ;(use-package helm
 ;  :ensure t

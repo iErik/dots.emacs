@@ -9,7 +9,26 @@ self: {
   inherit (pkgs.stdenv) hostPlatform;
   inherit (config.home) username homeDirectory;
 
-  emacsPkg = self.packages.${hostPlatform.system}.default;
+  metaPkg = self.packages.${hostPlatform.system}.default;
+
+  emacsPkg = (metaPkj.withPkgs (epkgs: with epkgs; [
+    vterm
+    treesit-grammars.with-all-grammars
+    all-the-icons
+
+    nix-ts-mode
+    uxntal-mode
+    slint-mode
+
+    sublime-themes
+    stimmung-themes
+    soothe-theme
+
+    rainbow-delimiters
+    rainbow-identifiers
+    rainbow-mode
+
+  ]));
 
   cfg = config.dots.emacs;
   dotsDir = "${homeDirectory}/${cfg.directory}";
@@ -44,9 +63,6 @@ in {
   config = mkIf cfg.enable {
     home.packages = [
       emacsPkg
-      (emacsPkg.pkgs.withPackages (epkgs: with epkgs; [
-        vterm
-      ]))
     ];
 
     home.activation.emacsSetup = mkIf cfg.cloneConfig
