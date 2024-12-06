@@ -37,7 +37,7 @@ self: {
     uxntal-mode
     slint-mode
 
-    theme-select
+    select-themes
     sublime-themes
     stimmung-themes
     soothe-theme
