@@ -5,7 +5,7 @@
 (load "keys")
 (load "editing")
 (load "theming")
-(load "dir")
+(load "dire")
 (load "tabbar")
 (load "terminal")
 (load "lsp")
