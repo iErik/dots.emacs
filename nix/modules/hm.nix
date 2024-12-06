@@ -65,7 +65,7 @@ self: {
     catppuccin-theme
     gruvbox-theme
     sweetgreen
-    organiz-green-theme
+    organic-green-theme
     green-phosphor-theme
     ef-themes
     sakura-theme
