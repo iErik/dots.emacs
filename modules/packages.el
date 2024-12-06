@@ -270,6 +270,8 @@
   `(use-package ,theme-name :ensure :defer))
 
 (use-theme 'soothe-theme)
+(use-theme 'haki-theme)
+(use-theme 'miasma-theme)
 (use-theme 'flexoki-themes)
 (use-theme 'doom-themes)
 (use-theme 'kanagawa-theme)

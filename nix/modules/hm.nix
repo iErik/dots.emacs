@@ -42,6 +42,33 @@ self: {
     stimmung-themes
     soothe-theme
     kanagawa-themes
+    kuronami-theme
+    timu-spacegrey-theme
+    timu-rouge-theme
+    timu-macos-theme
+    timu-line
+    timu-caribbean-theme
+    exotica-theme
+    inkpot-theme
+    arjen-grey-theme
+    avk-emacs-themes
+    badger-theme
+    base16-theme
+    boron-theme
+    bubbleberry-theme
+    challenger-deep-theme
+    caroline-theme
+    klere-theme
+    laguna-theme
+    ample-theme
+    ample-zen-theme
+    catppucin-theme
+    gruvbox-theme
+    sweetgreen
+    organiz-green-theme
+    green-phosphor-theme
+    ef-themes
+    sakura-theme
 
     pkgs.rust-analyzer
     pkgs.rustfmt

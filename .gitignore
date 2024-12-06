@@ -6,6 +6,8 @@
 
 # Backup files
 *~
+tmp
+transient
 
 # Undo-tree save-files
 *.~undo-tree
