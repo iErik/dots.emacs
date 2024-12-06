@@ -62,7 +62,7 @@ self: {
     laguna-theme
     ample-theme
     ample-zen-theme
-    catppucin-theme
+    catppuccin-theme
     gruvbox-theme
     sweetgreen
     organiz-green-theme
