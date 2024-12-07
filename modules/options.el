@@ -33,6 +33,8 @@
 (global-subword-mode t)
 (global-visual-line-mode t)
 
+(setq inhibit-compacting-font-caches t)
+
 ;; -> Backup files and Auto-Save files
 ;; -----------------------------------
 

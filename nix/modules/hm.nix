@@ -23,6 +23,8 @@ self: {
     helm
 
     dirvish
+    all-the-icons-dired
+    pkgs.emacs-all-the-icons-fonts
     pkgs.fd
     pkgs.poppler
     pkgs.ffmpegthumbnailer

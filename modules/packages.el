@@ -16,7 +16,7 @@
   :ensure t)
 
 (use-package all-the-icons
-  :ensure)
+  :ensure t)
 
 ;;(use-package centaur-tabs :ensure)
 
