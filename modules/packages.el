@@ -47,7 +47,7 @@
 
     ;; Whether to use hud instead of default bar. It's
     ;; only respected in GUI.
-    (setq doom-modeline-hud nil)
+    (setq doom-modeline-hud t)
 
     ;; How to detect the project root.
     ;; nil means to use `default-directory'.
@@ -62,6 +62,12 @@
     ;; While using the server mode in GUI, should set the
     ;; value explicitly.
     (setq doom-modeline-icon t)
+
+    (setq doom-modeline-major-mode-color-icon t)
+    (setq doom-modeline-buffer-state-icon t)
+    (setq doom-modeline-buffer-modification-icon t)
+    (setq doom-modeline-highlight-modified-buffer-name t)
+    (setq doom-modeline-modal-icon t)
 
     ;; Whether display the total line number。
     (setq doom-modeline-total-line-number nil))

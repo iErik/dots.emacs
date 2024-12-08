@@ -18,13 +18,14 @@ self: {
     #eterm-256color
     flycheck
     treesit-grammars.with-all-grammars
-    all-the-icons
     magit
     helm
 
-    dirvish
+    all-the-icons
     all-the-icons-dired
-    pkgs.emacs-all-the-icons-fonts
+    all-the-icons-nerd-fonts
+
+    dirvish
     pkgs.fd
     pkgs.poppler
     pkgs.ffmpegthumbnailer
@@ -34,6 +35,8 @@ self: {
     rainbow-identifiers
     rainbow-mode
 
+    glsl-mode
+    wgsl-mode
     nix-ts-mode
     nix-mode
     uxntal-mode
@@ -125,7 +128,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [emacsPkg];
+    home.packages = [
+      emacsPkg
+      pkgs.emacs-all-the-icons-fonts
+    ];
 
     home.activation.emacsSetup = mkIf cfg.cloneConfig
       (entryAfter ["writeBoundary"] ''

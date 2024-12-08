@@ -60,11 +60,17 @@
   (interactive)
 
   (let* ((current-project (project-current t))
-         (project-buffers
-	 (project--buffer-list current-project)))
+         (project-buffers-l
+          (project-buffers current-project))
+         (current-buffer (current-buffer))
+         (next-buffer (or
+          (car (last (member current-buffer project-buffers-l)))
+          (car project-buffers-l))))
 
-    (if project-buffers
-        (switch-to-buffer (car project-buffers))
+    (print next-buffer)
+
+    (if next-buffer
+        (switch-to-buffer next-buffer)
 
       (message "No other buffers in the current project."))
   ))
