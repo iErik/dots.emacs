@@ -40,6 +40,4 @@
    ("s"   . dirvish-quicksort)
    ("v"   . dirvish-vc-menu)
    ("TAB" . dirvish-subtree-toggle)
-   ("M-e" . dirvish-emerge-menu)
-
-  ))
+   ("M-e" . dirvish-emerge-menu)))

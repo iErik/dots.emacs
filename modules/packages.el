@@ -18,7 +18,8 @@
 (use-package all-the-icons
   :ensure t)
 
-;;(use-package centaur-tabs :ensure)
+(use-package consult
+  :ensure t)
 
 (use-package nov
   :ensure t
@@ -28,9 +29,9 @@
 
 (use-package vterm :ensure)
 
-;(use-package helm
-;  :ensure t
-;  :init (helm-mode 1))
+(use-package helm
+  :ensure t
+  :init (helm-mode 1))
 
 (use-package doom-modeline
   :ensure t

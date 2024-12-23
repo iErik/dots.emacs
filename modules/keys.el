@@ -140,8 +140,6 @@
 
 (defun info-bindings-h ()
   (interactive)
-  (print "secs")
-
   (evil-define-key '(normal insert motion) 'local
     (kbd "<return>") 'Info-follow-nearest-node
 
