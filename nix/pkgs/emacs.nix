@@ -212,6 +212,8 @@ in stdenv.mkDerivation (finalAttrs: {
 
   #buildFlags = [];
 
+  setupHook = ./setup-hook.sh;
+
   enableParallelBuilding = true;
 
   meta = with lib; {
