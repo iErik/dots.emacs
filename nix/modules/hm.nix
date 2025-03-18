@@ -22,7 +22,7 @@ self: {
     helm
     consult
 
-    all-the-icons
+    #all-the-icons
     all-the-icons-dired
     all-the-icons-nerd-fonts
 
