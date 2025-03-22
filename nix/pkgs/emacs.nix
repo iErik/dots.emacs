@@ -23,7 +23,7 @@
   pkgUrl =
     "https://ftp.gnu.org/gnu/emacs/emacs-${version}.tar.gz";
   sha256 =
-    "06d2qia2pflsigjkkivjma9cvmc1qjdk4sn5lzlawxjng9icb257";
+    "1hqb1wc84k3xhynnz8qkn2a7ikkrnxlgf48x0sfkqd49xs7xmmjh";
 
 in stdenv.mkDerivation (finalAttrs: {
   pname = "emacs";
@@ -209,8 +209,6 @@ in stdenv.mkDerivation (finalAttrs: {
     LIBRARY_PATH =
       lib.concatStringsSep ":" libGccJitLibraryPaths;
   };
-
-  #buildFlags = [];
 
   setupHook = ./setup-hook.sh;
 
