@@ -104,7 +104,7 @@ in stdenv.mkDerivation (finalAttrs: {
   ];
 
   patches = [
-    (replaceVars ./patches/native-comp-driver.patch {
+    (replaceVars ./patches/native-comp-driver-options.patch {
       backendPath = (lib.concatStringsSep " "
         (builtins.map (x: ''"-B${x}"'') ([
           # Paths necessary so the JIT compiler finds
