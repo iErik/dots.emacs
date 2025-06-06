@@ -73,7 +73,7 @@ in stdenv.mkDerivation (finalAttrs: {
     pkgs.librsvg
     pkgs.libwebp
     pkgs.texinfo
-    pkgs.libxml12
+    pkgs.libxml2
     pkgs.ncurses
 
     pkgs.giflib
