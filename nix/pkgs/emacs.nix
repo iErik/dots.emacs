@@ -4,7 +4,7 @@
   stdenv,
 
   recurseIntoAttrs,
-  substituteAll,
+  replaceVars,
   fetchzip,
   emacsPackagesFor,
 
@@ -104,9 +104,7 @@ in stdenv.mkDerivation (finalAttrs: {
   ];
 
   patches = [
-    (substituteAll {
-      src = ./patches/native-comp-driver.patch;
-
+    (replaceVars ./patches/native-comp-driver.patch {
       backendPath = (lib.concatStringsSep " "
         (builtins.map (x: ''"-B${x}"'') ([
           # Paths necessary so the JIT compiler finds
