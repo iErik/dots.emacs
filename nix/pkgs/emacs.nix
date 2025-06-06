@@ -219,12 +219,6 @@ in stdenv.mkDerivation (finalAttrs: {
         .withPackages;
   };
 
-  # Emacs needs to find movemail at run time,
-  # see info (emacs) Movemail
-  propagatedUserEnvPkgs = [
-    pkgs.mailutils
-  ];
-
   env = {
     NATIVE_FULL_AOT = "1";
     LIBRARY_PATH =
