@@ -73,6 +73,7 @@ in stdenv.mkDerivation (finalAttrs: {
     pkgs.librsvg
     pkgs.libwebp
     pkgs.texinfo
+    pkgs.libxml12
     pkgs.ncurses
 
     pkgs.giflib
@@ -96,12 +97,18 @@ in stdenv.mkDerivation (finalAttrs: {
     "--with-modules" # For dynamic C Modules
     "--with-json"
     "--with-tree-sitter"
+    "--with-dbus"
     "--with-small-ja-dic"
     "--with-xwidgets"
     "--with-x-toolkit=gtk"
     "--with-mailutils"
     "--enable-link-time-optimization"
   ];
+
+  # Emacs needs to find movemail at run time
+  propagatedUserEnvPkgs = [
+    mailutils
+  ]
 
   patches = [
     (replaceVars ./patches/native-comp-driver-options.patch {
@@ -150,6 +157,16 @@ in stdenv.mkDerivation (finalAttrs: {
       done
     ''
 
+    ''
+      substituteInPlace lisp/net/mailcap.el \
+        --replace-fail '"/etc/mime.types"' \
+                       '"/etc/mime.types" \
+                       "${mailcap}/etc/mime.types"' \
+        --replace-fail '("/etc/mailcap" system)' \
+                       '("/etc/mailcap" system) \
+                       ("${mailcap}/etc/mailcap" system)'
+    ''
+
     ""
   ];
 
@@ -161,6 +178,12 @@ in stdenv.mkDerivation (finalAttrs: {
     cp ${siteStart} $out/share/emacs/site-lisp/site-start.el
     $out/bin/emacs --batch -f batch-byte-compile \
       $out/share/emacs/site-lisp/site-start.el
+    siteVersionDir=\
+      `ls $out/share/emacs |\
+      grep -v site-lisp |\
+      head -n 1`
+
+    rm -r $out/share/emacs/$siteVersionDir/site-lisp
 
     echo "Generating native-compiled trampolines..."
     # precompile trampolines in parallel, but avoid
@@ -209,6 +232,11 @@ in stdenv.mkDerivation (finalAttrs: {
   };
 
   setupHook = ./setup-hook.sh;
+
+  installTargets = [
+    "tags"
+    "install"
+  ];
 
   enableParallelBuilding = true;
 
