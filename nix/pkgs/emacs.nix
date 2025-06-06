@@ -161,10 +161,10 @@ in stdenv.mkDerivation (finalAttrs: {
       substituteInPlace lisp/net/mailcap.el \
         --replace-fail '"/etc/mime.types"' \
                        '"/etc/mime.types" \
-                       "${mailcap}/etc/mime.types"' \
+                       "${pkgs.mailcap}/etc/mime.types"' \
         --replace-fail '("/etc/mailcap" system)' \
                        '("/etc/mailcap" system) \
-                       ("${mailcap}/etc/mailcap" system)'
+                       ("${pkgs.mailcap}/etc/mailcap" system)'
     ''
 
     ""
