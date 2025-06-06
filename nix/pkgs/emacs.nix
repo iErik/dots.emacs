@@ -108,7 +108,7 @@ in stdenv.mkDerivation (finalAttrs: {
   # Emacs needs to find movemail at run time
   propagatedUserEnvPkgs = [
     mailutils
-  ]
+  ];
 
   patches = [
     (replaceVars ./patches/native-comp-driver-options.patch {
