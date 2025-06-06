@@ -107,7 +107,7 @@ in stdenv.mkDerivation (finalAttrs: {
 
   # Emacs needs to find movemail at run time
   propagatedUserEnvPkgs = [
-    mailutils
+    pkgs.mailutils
   ];
 
   patches = [
