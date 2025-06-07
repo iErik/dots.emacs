@@ -86,7 +86,7 @@ in stdenv.mkDerivation (finalAttrs: {
     pkgs.tree-sitter
     pkgs.cairo
 
-    pkgs.webkitgtk_4_1
+    #pkgs.webkitgtk_4_1
   ];
 
   dontConfigure = false;
@@ -101,7 +101,7 @@ in stdenv.mkDerivation (finalAttrs: {
     "--with-tree-sitter"
     "--with-dbus"
     "--with-small-ja-dic"
-    "--with-xwidgets"
+    #"--with-xwidgets"
     "--with-x-toolkit=gtk"
     "--with-mailutils"
     "--enable-link-time-optimization"
