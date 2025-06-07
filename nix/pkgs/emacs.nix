@@ -86,7 +86,7 @@ in stdenv.mkDerivation (finalAttrs: {
     pkgs.tree-sitter
     pkgs.cairo
 
-    pkgs.webkitgtk_6_0
+    pkgs.webkitgtk_4_1
   ];
 
   dontConfigure = false;
