@@ -240,10 +240,10 @@ in stdenv.mkDerivation (finalAttrs: {
 
   setupHook = ./setup-hook.sh;
 
-  installTargets = [
-    "tags"
-    "install"
-  ];
+  #installTargets = [
+  #  "tags"
+  #  "install"
+  #];
 
   enableParallelBuilding = true;
 
