@@ -67,7 +67,7 @@ in stdenv.mkDerivation (finalAttrs: {
     pkgs.systemd
 
     pkgs.xorg.libXaw
-    pkgs.xorg.Xaw3d
+    pkgs.Xaw3d
     pkgs.zlib
     pkgs.libpng
     pkgs.libjpeg
