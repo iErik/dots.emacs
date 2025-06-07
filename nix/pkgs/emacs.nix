@@ -191,10 +191,7 @@ in stdenv.mkDerivation (finalAttrs: {
     cp ${siteStart} $out/share/emacs/site-lisp/site-start.el
     $out/bin/emacs --batch -f batch-byte-compile \
       $out/share/emacs/site-lisp/site-start.el
-    siteVersionDir=\
-      `ls $out/share/emacs |\
-      grep -v site-lisp |\
-      head -n 1`
+    siteVersionDir=`ls $out/share/emacs | grep -v site-lisp | head -n 1`
 
     rm -r $out/share/emacs/$siteVersionDir/site-lisp
 
@@ -223,9 +220,10 @@ in stdenv.mkDerivation (finalAttrs: {
     # emacsPackageFor makes use of these attributes
     withNativeCompilation = true;
     withTreeSitter = true;
-    withXwidgets = true;
+    withXwidgets = false;
 
-    pkgs = (recurseIntoAttrs (emacsPackagesFor finalAttrs));
+    pkgs = (recurseIntoAttrs (emacsPackagesFor
+      finalAttrs.finalPackage));
 
     withPkgs =
       (recurseIntoAttrs (emacsPackagesFor finalAttrs))
