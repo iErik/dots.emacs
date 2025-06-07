@@ -6,6 +6,7 @@
   recurseIntoAttrs,
   replaceVars,
   fetchzip,
+  fetchpatch,
   emacsPackagesFor,
 
   ...
@@ -66,6 +67,7 @@ in stdenv.mkDerivation (finalAttrs: {
     pkgs.systemd
 
     pkgs.xorg.libXaw
+    pkgs.xorg.Xaw3d
     pkgs.zlib
     pkgs.libpng
     pkgs.libjpeg
@@ -111,6 +113,17 @@ in stdenv.mkDerivation (finalAttrs: {
   ];
 
   patches = [
+    (builtins.path {
+      name = "inhibit-lexical-cookie-warning-67916.patch";
+      path = ./patches/inhibit-lexical-cookie-warning-67916.patch;
+    })
+
+    (fetchpatch {
+      # bug#63288 and bug#76523
+      url = "https://git.savannah.gnu.org/cgit/emacs.git/patch/?id=53a5dada413662389a17c551a00d215e51f5049f";
+      hash = "sha256-AEvsQfpdR18z6VroJkWoC3sBoApIYQQgeF/P2DprPQ8=";
+    })
+
     (replaceVars ./patches/native-comp-driver-options.patch {
       backendPath = (lib.concatStringsSep " "
         (builtins.map (x: ''"-B${x}"'') ([
