@@ -18,13 +18,13 @@
     "${lib.getLib stdenv.cc.cc.lib.libgcc}/lib"
   ];
 
-  version = "30.1";
+  version = "30.2";
   siteStart = ./site-start.el;
 
   pkgUrl =
     "https://ftp.gnu.org/gnu/emacs/emacs-${version}.tar.gz";
   sha256 =
-    "1hqb1wc84k3xhynnz8qkn2a7ikkrnxlgf48x0sfkqd49xs7xmmjh";
+    "1d79a4ba4d6596f302a7146843fe59cf5caec798190bcc07c907e7ba244b076d";
 
 in stdenv.mkDerivation (finalAttrs: {
   pname = "emacs";
