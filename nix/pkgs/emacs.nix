@@ -227,6 +227,7 @@ in stdenv.mkDerivation (finalAttrs: {
 
     withPkgs =
       (recurseIntoAttrs (emacsPackagesFor finalAttrs))
+        .withPackages;
   };
 
   env = {
