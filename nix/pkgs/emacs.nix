@@ -24,7 +24,7 @@
   pkgUrl =
     "https://ftp.gnu.org/gnu/emacs/emacs-${version}.tar.gz";
   sha256 =
-    "1d79a4ba4d6596f302a7146843fe59cf5caec798190bcc07c907e7ba244b076d";
+    "sha256-W2eZ+cNQhi/fMeRkwOqSKU7Vzvp43WUOpiwaLLNEXtg=";
 
 in stdenv.mkDerivation (finalAttrs: {
   pname = "emacs";
