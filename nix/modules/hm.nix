@@ -78,7 +78,9 @@ self: {
 
     pkgs.rust-analyzer
     pkgs.rustfmt
-    pkgs.ols
+
+    # Buggy
+    #pkgs.ols
     pkgs.vim-language-server
     pkgs.vue-language-server
     pkgs.cmake-language-server
