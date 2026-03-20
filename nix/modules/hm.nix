@@ -20,7 +20,7 @@ self: {
     treesit-grammars.with-all-grammars
     magit
     helm
-    consult
+    #consult
 
     #all-the-icons
     all-the-icons-dired
