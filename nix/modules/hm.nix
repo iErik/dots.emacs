@@ -153,7 +153,7 @@ in {
 
           git clone ${repoUrl} ${dotsDir}
 
-          chown -R ${username}:users ${dotsDir}
+          chown -R ${username} ${dotsDir}
           find ${dotsDir} -type d -exec chmod 744 {} \;
           find  ${dotsDir} -type f -exec chmod 644 {} \;
 
