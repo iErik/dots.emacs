@@ -20,7 +20,7 @@ self: {
     treesit-grammars.with-all-grammars
     magit
     helm
-    consult
+    #consult
 
     #all-the-icons
     all-the-icons-dired
@@ -133,7 +133,8 @@ in {
   config = mkIf cfg.enable {
     home.packages = [
       emacsPkg
-      pkgs.emacs-all-the-icons-fonts
+      #pkgs.emacs-all-the-icons-fonts
+      pkgs.emacsPackages.all-the-icons
     ];
 
     home.activation.emacsSetup = mkIf cfg.cloneConfig
